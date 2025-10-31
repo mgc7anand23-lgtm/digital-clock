@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"content="width=device-width,initial-scale=1.0">
+        <title>digital clock</title>
+    </head>
+    <body>
+        
+       <div class="clock"id="clock">
+        <div class="number" style="top: 20px;left: 50%;">12</div>
+        <div class="number" style="top:40px;left: 75%;">1</div>
+        <div class="number"style="top:30%;left: 270px;">2</div>
+        <div class="number" style="top:50%;left:280px;">3</div>
+       <div class="number" style="top: 75%;left: 260px;">4</div>
+       <div class="number" style="top:270px;left:70%">5</div>
+        <div class="number" style="top: 280px;left:50%;">6</div>
+        <div class="number" style="top:270px;left:30%;">7</div>
+        <div class="number" style="top: 75%;left: 35px;">8</div>
+        <div class="number" style="top: 50%;left: 20px;">9</div>
+        <div class="number" style="top:30%;left: 30px;">10</div>
+        <div class="number"style="top:40px; left:25%;">11</div>
+
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+       </div>
+       <script>
+        function updateclock(){
+            const now=new Date();
+            const seconds=now.getSeconds();
+            const minutes=now.getMinutes();
+            const hours=now.getHours();
+            const secondDeg=seconds*6;
+            const minuteDeg=minutes*6+seconds*0.1;
+            const hourDeg=(hours %12)*30+minutes*0.5;
+            document.getElementById("second").style.transform=`translate(-50%,-100%) rotate(${secondDeg}deg)`;
+            document.getElementById("minute").style.transform=`translate(-50%,-100%) rotate(${minuteDeg}deg)`;
+            document.getElementById("hour").style.transform=`translate(-50%,-100%) rotate(${hourDeg}deg)`;
+
+        }
+        setInterval(updateclock,1000);
+        updateclock();
+       </script>
+       <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at center,#20232a,#000);
+        }
+        .clock{
+            width: 300px;
+            height: 300px;
+            border: 8px solid #fff;
+            border-radius: 50%;
+            position: relative;
+            background:#111;
+            box-shadow: 0 0 40px rgba(255,255, 255, 0.2);
+        }
+        .clock::after{
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 10;
+        }
+        .hand{
+            position: absolute;
+            background: white;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: rotate(90deg);
+            border-radius: 6px;
+        }
+        .hour{
+            width: 6px;
+            height: 70px;
+            background: #fff;
+            z-index: 3;
+        }
+        .minute{
+            width: 4px;
+            height: 100px;
+            background: #0ff;
+            z-index: 2;
+
+        }
+        .second{
+            width: 2px;
+            height: 50px;
+            background: #f00;
+            z-index: 1;
+        }
+        .number{
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transform: translate(-50%,-50%);
+        }
+       </style>
+    </body>
+</html>
